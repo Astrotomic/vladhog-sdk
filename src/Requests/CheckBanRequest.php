@@ -3,23 +3,24 @@
 namespace Astrotomic\VladhogSdk\Requests;
 
 use Illuminate\Support\Str;
-use Sammyjo20\Saloon\Http\SaloonRequest;
-use Sammyjo20\Saloon\Http\SaloonResponse;
-use Sammyjo20\Saloon\Traits\Plugins\CastsToDto;
+use Saloon\Contracts\Response as ResponseContract;
+use Saloon\Enums\Method;
+use Saloon\Http\Request;
+use Saloon\Traits\Request\CastDtoFromResponse;
 use SteamID;
 
-class CheckBanRequest extends SaloonRequest
+class CheckBanRequest extends Request
 {
-    use CastsToDto;
+    use CastDtoFromResponse;
 
-    protected ?string $method = 'GET';
+    protected Method $method = Method::GET;
 
     public function __construct(
         public readonly string|SteamID $steamid,
     ) {
     }
 
-    public function defineEndpoint(): string
+    public function resolveEndpoint(): string
     {
         $steamid = is_string($this->steamid)
             ? $this->steamid
@@ -28,8 +29,8 @@ class CheckBanRequest extends SaloonRequest
         return "/get;steamid={$steamid};type=string";
     }
 
-    protected function castToDto(SaloonResponse $response): bool
+    public function createDtoFromResponse(ResponseContract $response): bool
     {
-        return (bool) json_decode(Str::lower($response->body()));
+        return (bool) json_decode(Str::lower($response->body()), true, 512, JSON_THROW_ON_ERROR);
     }
 }

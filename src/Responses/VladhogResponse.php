@@ -6,11 +6,12 @@ use Astrotomic\VladhogSdk\Exceptions\BadGatewayException;
 use Astrotomic\VladhogSdk\Exceptions\BadResponseException;
 use Astrotomic\VladhogSdk\Exceptions\ClientException;
 use Astrotomic\VladhogSdk\Exceptions\ServerException;
-use Sammyjo20\Saloon\Http\SaloonResponse;
+use Saloon\Http\Response;
+use Throwable;
 
-class VladhogResponse extends SaloonResponse
+class VladhogResponse extends Response
 {
-    public function toException(): ?BadResponseException
+    public function toException(): ?Throwable
     {
         return match (true) {
             $this->clientError() => ClientException::fromResponse($this),

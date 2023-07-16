@@ -8,17 +8,17 @@ use Astrotomic\VladhogSdk\Requests\GetBanInfoRequest;
 use Astrotomic\VladhogSdk\Requests\ListBansRequest;
 use Astrotomic\VladhogSdk\Responses\VladhogResponse;
 use Illuminate\Support\Collection;
-use Sammyjo20\Saloon\Http\SaloonConnector;
-use Sammyjo20\Saloon\Traits\Plugins\AlwaysThrowsOnErrors;
+use Saloon\Http\Connector;
+use Saloon\Traits\Plugins\AlwaysThrowOnErrors;
 use SteamID;
 
-class VladhogConnector extends SaloonConnector
+class VladhogConnector extends Connector
 {
-    use AlwaysThrowsOnErrors;
+    use AlwaysThrowOnErrors;
 
     protected ?string $response = VladhogResponse::class;
 
-    public function defineBaseUrl(): string
+    public function resolveBaseUrl(): string
     {
         return 'https://vladhog.ru/GlobalBanListAPI/api';
     }

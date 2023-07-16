@@ -3,27 +3,27 @@
 namespace Astrotomic\VladhogSdk\Requests;
 
 use Illuminate\Support\Collection;
-use Sammyjo20\Saloon\Http\SaloonRequest;
-use Sammyjo20\Saloon\Http\SaloonResponse;
-use Sammyjo20\Saloon\Traits\Plugins\CastsToDto;
+use Saloon\Contracts\Response as ResponseContract;
+use Saloon\Enums\Method;
+use Saloon\Http\Request;
+use Saloon\Traits\Request\CastDtoFromResponse;
 use SteamID;
 
-class ListBansRequest extends SaloonRequest
+class ListBansRequest extends Request
 {
-    use CastsToDto;
+    use CastDtoFromResponse;
 
-    protected ?string $method = 'GET';
+    protected Method $method = Method::GET;
 
-    public function defineEndpoint(): string
+    public function resolveEndpoint(): string
     {
         return '/get_list';
     }
 
     /**
-     * @param  \Sammyjo20\Saloon\Http\SaloonResponse  $response
-     * @return \Illuminate\Support\Collection<string, \SteamID>
+     * @return Collection<string, \SteamID>
      */
-    protected function castToDto(SaloonResponse $response): Collection
+    public function createDtoFromResponse(ResponseContract $response): Collection
     {
         return $response->collect()
             ->mapWithKeys(fn (string $steamid) => [

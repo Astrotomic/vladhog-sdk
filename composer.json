@@ -25,8 +25,8 @@
         "ext-json": "*",
         "illuminate/support": "^9.0",
         "nesbot/carbon": "^2.53.1",
-        "sammyjo20/saloon": "^1.5.3",
-        "sammyjo20/saloon-laravel": "^1.5.0",
+        "sammyjo20/saloon": "^2.0",
+        "sammyjo20/saloon-laravel": "^v2.0",
         "spatie/laravel-data": "^3.1",
         "xpaw/steamid": "^2.0"
     },
