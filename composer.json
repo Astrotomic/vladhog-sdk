@@ -27,7 +27,7 @@
         "nesbot/carbon": "^2.53.1",
         "sammyjo20/saloon": "^2.0",
         "sammyjo20/saloon-laravel": "^v2.0",
-        "spatie/laravel-data": "^3.1",
+        "spatie/laravel-data": "^4.3",
         "xpaw/steamid": "^2.0"
     },
     "require-dev": {
