@@ -13,6 +13,5 @@ final class Ban extends Data
         public readonly CarbonImmutable $banned_at,
         public readonly ?string $server,
         public readonly ?string $reason,
-    ) {
-    }
+    ) {}
 }

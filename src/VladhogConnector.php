@@ -24,12 +24,12 @@ class VladhogConnector extends Connector
     }
 
     /**
-     * @return \Illuminate\Support\Collection<string, \SteamID>
+     * @return Collection<string, SteamID>
      */
     public function list(): Collection
     {
         return $this->send(
-            new ListBansRequest()
+            new ListBansRequest
         )->dto();
     }
 

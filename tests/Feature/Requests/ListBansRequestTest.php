@@ -1,14 +1,21 @@
 <?php
 
-use PHPUnit\Framework\Assert;
+namespace Tests\Feature\Requests;
 
-it('can load a list of banned steamids', function (): void {
-    $bans = $this->vladhog->list();
+use SteamID;
+use Tests\TestCase;
 
-    Assert::assertGreaterThan(0, $bans->count());
-    Assert::assertContainsOnlyInstancesOf(SteamID::class, $bans);
+final class ListBansRequestTest extends TestCase
+{
+    public function test_can_load_a_list_of_banned_steamids(): void
+    {
+        $bans = $this->vladhog->list();
 
-    $bans->each(function (SteamID $steamid, string $original): void {
-        Assert::assertSame($steamid->ConvertToUInt64(), (new SteamID($original))->ConvertToUInt64());
-    });
-});
+        $this->assertGreaterThan(0, $bans->count());
+        $this->assertContainsOnlyInstancesOf(SteamID::class, $bans);
+
+        $bans->each(function (SteamID $steamid, string $original): void {
+            $this->assertSame($steamid->ConvertToUInt64(), (new SteamID($original))->ConvertToUInt64());
+        });
+    }
+}

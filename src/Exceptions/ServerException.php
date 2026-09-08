@@ -2,6 +2,4 @@
 
 namespace Astrotomic\VladhogSdk\Exceptions;
 
-class ServerException extends BadResponseException
-{
-}
+class ServerException extends BadResponseException {}

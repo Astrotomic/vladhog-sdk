@@ -8,7 +8,7 @@ use Throwable;
 
 class BadResponseException extends RequestException
 {
-    final public function __construct(Response $response, string $message = '', int $code = 0, Throwable $previous = null)
+    final public function __construct(Response $response, string $message = '', int $code = 0, ?Throwable $previous = null)
     {
         parent::__construct($response, $message, $code, $previous);
     }

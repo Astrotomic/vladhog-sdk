@@ -2,6 +2,4 @@
 
 namespace Astrotomic\VladhogSdk\Exceptions;
 
-class BadGatewayException extends ServerException
-{
-}
+class BadGatewayException extends ServerException {}

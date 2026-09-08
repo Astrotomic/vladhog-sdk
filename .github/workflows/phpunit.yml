@@ -1,0 +1,40 @@
+name: phpunit
+
+on:
+  push:
+
+jobs:
+  phpunit:
+    name: PHP ${{ matrix.php }} - Laravel ${{ matrix.laravel }} - ${{ matrix.dependency-version }}
+    timeout-minutes: 15
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        laravel: [9, 10, 11, 12, 13]
+        dependency-version: [prefer-lowest, prefer-stable]
+        include:
+          - laravel: 9
+            php: 8.2
+            testbench: ^7.0
+          - laravel: 10
+            php: 8.2
+            testbench: ^8.0
+          - laravel: 11
+            php: 8.2
+            testbench: ^9.0
+          - laravel: 12
+            php: 8.2
+            testbench: ^10.0
+          - laravel: 13
+            php: 8.3
+            testbench: ^11.0
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+      - name: Install dependencies
+        run: composer update --${{ matrix.dependency-version }} --no-blocking --with="illuminate/support:^${{ matrix.laravel }}.0" --with="orchestra/testbench:${{ matrix.testbench }}" --prefer-dist --no-interaction --no-progress --no-scripts
+      - run: vendor/bin/phpunit

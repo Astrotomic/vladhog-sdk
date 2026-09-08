@@ -1,16 +1,16 @@
-name: phpcs
+name: pint
 
 on:
   push:
 
 jobs:
-  phpcs:
+  pint:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@v4
       - uses: shivammathur/setup-php@v2
         with:
-          php-version: 8.1
+          php-version: 8.2
       - run: composer install --no-interaction --no-scripts
       - run: vendor/bin/pint --test

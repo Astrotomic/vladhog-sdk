@@ -4,22 +4,18 @@ namespace Astrotomic\VladhogSdk\Requests;
 
 use Astrotomic\VladhogSdk\Data\Ban;
 use Carbon\CarbonImmutable;
-use Saloon\Contracts\Response as ResponseContract;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
-use Saloon\Traits\Request\CastDtoFromResponse;
+use Saloon\Http\Response;
 use SteamID;
 
 class GetBanInfoRequest extends Request
 {
-    use CastDtoFromResponse;
-
     protected Method $method = Method::GET;
 
     public function __construct(
         public readonly string|SteamID $steamid,
-    ) {
-    }
+    ) {}
 
     public function resolveEndpoint(): string
     {
@@ -30,7 +26,7 @@ class GetBanInfoRequest extends Request
         return "/info;steamid={$steamid};type=string";
     }
 
-    public function createDtoFromResponse(ResponseContract $response): ?Ban
+    public function createDtoFromResponse(Response $response): ?Ban
     {
         if (str_starts_with($response->body(), 'Error: ')) {
             return null;
